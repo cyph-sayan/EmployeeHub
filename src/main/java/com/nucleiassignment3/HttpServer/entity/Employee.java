@@ -1,11 +1,14 @@
 package com.nucleiassignment3.HttpServer.entity;
 
-import jakarta.persistence.*;
+import jakarta.persistence.Column;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import java.sql.Date;
 import java.sql.Timestamp;
 
@@ -13,23 +16,26 @@ import java.sql.Timestamp;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@Table(name="employees")
+@javax.persistence.Table(name="employees")
 public class Employee {
-    @Id
-    @GeneratedValue(strategy=GenerationType.IDENTITY)
-    @Column(name = "emp_id")
+    @Column(name="row_id")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int row_id;
+
+    @javax.persistence.Id
+    @javax.persistence.Column(name = "emp_id")
     private int emp_id;
 
-    @Column(name = "name")
+    @javax.persistence.Column(name = "name")
     private String name;
 
-    @Column(name = "dob")
+    @javax.persistence.Column(name = "dob")
     private Date date;
 
-    @Column(name = "gender")
+    @javax.persistence.Column(name = "gender")
     private String gender;
 
-    @Column(name="created_at")
+    @javax.persistence.Column(name="created_at")
     @CreationTimestamp
     private Timestamp created_at;
 
