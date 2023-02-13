@@ -1,6 +1,6 @@
 package com.nucleiassignment3.HttpServer.controller;
+
 import com.nucleiassignment3.HttpServer.bo.EmployeeBo;
-import com.nucleiassignment3.HttpServer.entity.Employee;
 import com.nucleiassignment3.HttpServer.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RestController;
@@ -20,32 +20,31 @@ public class EmployeeController {
     @Autowired
     EmployeeService employeeService;
 
-    @PostMapping("/Employee")
-    public Employee addEmployee(@RequestBody EmployeeBo employeeBo){
-        return  employeeService.createEmployee(employeeBo);
+    @PostMapping("/employee")
+    public EmployeeBo addEmployee(@RequestBody EmployeeBo employeeBo){
+        return employeeService.createEmployee(employeeBo);
     }
 
-    @PutMapping("/Employee/{id}")
-    public Employee updateEmployee(@PathVariable int id,@RequestBody EmployeeBo employeeBo)
+    @PutMapping("/employee/{id}")
+    public EmployeeBo updateEmployee(@PathVariable int id,@RequestBody EmployeeBo employee)
     {
-        return employeeService.updateEmployee(id,employeeBo);
+        return employeeService.updateEmployee(id,employee);
     }
 
-    @GetMapping("/Employees")
-    public List<Employee> listEmployees(){
-        return employeeService.listEmployees();
+    @GetMapping("/employees")
+    public List<EmployeeBo> listEmployees(int pageSize, int pageNumber){
+        return employeeService.listEmployees(pageSize,pageNumber);
     }
 
-    @GetMapping("/Employee/{id}")
-    public Employee getEmployee(@PathVariable int id)
+    @GetMapping("/employee/{id}")
+    public EmployeeBo getEmployee(@PathVariable int id)
     {
         return employeeService.getEmployee(id);
     }
 
-    @DeleteMapping("/Employee/{id}")
+    @DeleteMapping("/employee/{id}")
     public void deleteEmployee(@PathVariable int id){
-        employeeService.deleteEmployee(id);
+         employeeService.deleteEmployee(id);
     }
-
 
 }

@@ -1,15 +1,14 @@
 package com.nucleiassignment3.HttpServer.service;
 
 import com.nucleiassignment3.HttpServer.bo.EmployeeBo;
-import com.nucleiassignment3.HttpServer.entity.Employee;
-
 import java.util.List;
 
 public interface EmployeeService {
 
-    public Employee createEmployee(EmployeeBo employeeBo);
-    public Employee getEmployee(int id);
-    public List<Employee> listEmployees();
-    public Employee updateEmployee(int id, EmployeeBo employeeBo);
-    public void deleteEmployee(int id);
+    EmployeeBo createEmployee(EmployeeBo employeeBo);
+    EmployeeBo getEmployee(int id);
+    List<EmployeeBo> listEmployees(int pageSize, int pageNumber);
+    EmployeeBo updateEmployee(int id, EmployeeBo employeeBo);
+    void deleteEmployee(int id);
+
 }

@@ -1,8 +1,8 @@
 package com.nucleiassignment3.HttpServer.bo;
 
 import lombok.*;
-
 import java.sql.Date;
+
 @Getter
 @Setter
 @NoArgsConstructor

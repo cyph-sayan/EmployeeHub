@@ -6,8 +6,9 @@ import com.nucleiassignment3.HttpServer.mapper.EmployeeMapper;
 import com.nucleiassignment3.HttpServer.repository.EmployeeRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
-
 import java.util.List;
 
 @Repository
@@ -19,28 +20,29 @@ public class EmployeeDaoImpl implements EmployeeDao{
     private EmployeeRepository employeeRepository;
 
     @Override
-    public Employee createEmployee(EmployeeBo employeeBo) {
+    public EmployeeBo createEmployee(EmployeeBo employeeBo) {
 
-        return employeeRepository.save(employeeMapper.employeeBoToEmployee(employeeBo));
+        return employeeMapper.entityToBo(employeeRepository.save(employeeMapper.boToEntity(employeeBo)));
     }
 
     @Override
-    public Employee getEmployee(int id) {
-        return employeeRepository.findById(id).orElse(null);
+    public EmployeeBo getEmployee(int id) {
+        return employeeMapper.entityToBo(employeeRepository.findById(id).orElse(null));
     }
 
     @Override
-    public List<Employee> listEmployees() {
-        return employeeRepository.findAll();
+    public List<EmployeeBo> listEmployees(int pageSize, int pageNumber) {
+        Pageable pageable=PageRequest.of(pageNumber,pageSize);
+        return employeeMapper.listEntityToListBo(employeeRepository.findAll(pageable).getContent());
     }
 
     @Override
-    public Employee updateEmployee(int id, EmployeeBo employeeBo) {
+    public EmployeeBo updateEmployee(int id, EmployeeBo employeeBo) {
         Employee existingEmployee=employeeRepository.findById(id).orElse(null);
         existingEmployee.setName(employeeBo.getName());
         existingEmployee.setDate(employeeBo.getDate());
         existingEmployee.setGender(employeeBo.getGender());
-        return employeeRepository.save(existingEmployee);
+        return employeeMapper.entityToBo(employeeRepository.save(existingEmployee));
     }
 
     @Override
