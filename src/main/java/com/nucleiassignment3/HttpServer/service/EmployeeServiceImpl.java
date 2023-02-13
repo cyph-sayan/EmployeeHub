@@ -2,6 +2,10 @@ package com.nucleiassignment3.HttpServer.service;
 
 import com.nucleiassignment3.HttpServer.bo.EmployeeBo;
 import com.nucleiassignment3.HttpServer.dao.EmployeeDao;
+import com.nucleiassignment3.HttpServer.mapper.EmployeeMapper;
+import com.nucleiassignment3.HttpServer.model.CreateEmployeeRequest;
+import com.nucleiassignment3.HttpServer.model.UpdateEmployeeRequest;
+import com.nucleiassignment3.HttpServer.utility.IdGenerator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -12,16 +16,19 @@ public class EmployeeServiceImpl implements EmployeeService
 {
 
     @Autowired
+    EmployeeMapper employeeMapper;
+    @Autowired
     EmployeeDao employeeDao;
+    IdGenerator employeeIdGenerator=new IdGenerator();
 
     @Override
-    public EmployeeBo createEmployee(EmployeeBo employeeBo)
+    public EmployeeBo createEmployee(CreateEmployeeRequest createEmployeeRequest)
     {
-        return employeeDao.createEmployee(employeeBo);
+        return employeeDao.createEmployee(employeeMapper.createRequestToBo(createEmployeeRequest,employeeIdGenerator.employeeIdGen()));
     }
 
     @Override
-    public EmployeeBo getEmployee(int id)
+    public EmployeeBo getEmployee(String id)
     {
         return employeeDao.getEmployee(id);
     }
@@ -33,13 +40,13 @@ public class EmployeeServiceImpl implements EmployeeService
     }
 
     @Override
-    public EmployeeBo updateEmployee(int id,EmployeeBo employeeBo)
+    public EmployeeBo updateEmployee(String id, UpdateEmployeeRequest updateEmployeeRequest)
     {
-        return employeeDao.updateEmployee(id,employeeBo);
+        return employeeDao.updateEmployee(id,updateEmployeeRequest);
     }
 
     @Override
-    public void deleteEmployee(int id)
+    public void deleteEmployee(String  id)
     {
         employeeDao.deleteEmployee(id);
     }

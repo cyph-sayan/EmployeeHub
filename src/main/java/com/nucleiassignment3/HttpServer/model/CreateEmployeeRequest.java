@@ -1,20 +1,16 @@
-package com.nucleiassignment3.HttpServer.bo;
+package com.nucleiassignment3.HttpServer.model;
 
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.Getter;
 import java.sql.Date;
 
-@Getter
-@Setter
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class EmployeeBo {
-
-    private String emp_id;
+public class CreateEmployeeRequest
+{
     private String name;
-    private Date date;
+    private Date dob;
     private String gender;
-
 }

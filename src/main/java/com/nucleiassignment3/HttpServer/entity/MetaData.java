@@ -2,24 +2,27 @@ package com.nucleiassignment3.HttpServer.entity;
 
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import javax.persistence.Column;
+import javax.persistence.MappedSuperclass;
 import java.time.LocalDateTime;
 
-public abstract class CommonAttributes {
+@MappedSuperclass
+public abstract class MetaData {
 
-    @javax.persistence.Column(name="created_time")
+    @Column(name="create_time")
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @javax.persistence.Column(name="update_time")
+    @Column(name="update_time")
     @UpdateTimestamp
-    private LocalDateTime updateTimestamp;
+    private LocalDateTime updatedAt;
 
-    @javax.persistence.Column(name="active")
+    @Column(name="active")
     private int active=1;
 
-    @javax.persistence.Column(name = "created_by")
+    @Column(name = "created_by")
     private String creator;
 
-    @javax.persistence.Column(name = "updated_by")
+    @Column(name = "updated_by")
     private String updator;
 }

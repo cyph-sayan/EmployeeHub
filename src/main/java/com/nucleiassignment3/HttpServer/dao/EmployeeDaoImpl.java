@@ -3,6 +3,7 @@ package com.nucleiassignment3.HttpServer.dao;
 import com.nucleiassignment3.HttpServer.bo.EmployeeBo;
 import com.nucleiassignment3.HttpServer.entity.Employee;
 import com.nucleiassignment3.HttpServer.mapper.EmployeeMapper;
+import com.nucleiassignment3.HttpServer.model.UpdateEmployeeRequest;
 import com.nucleiassignment3.HttpServer.repository.EmployeeRepository;
 import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,6 +11,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao{
@@ -27,7 +29,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
     }
 
     @Override
-    public EmployeeBo getEmployee(int id)
+    public EmployeeBo getEmployee(String id)
     {
         return employeeMapper.entityToBo(employeeRepository.findById(id).orElse(null));
     }
@@ -40,17 +42,16 @@ public class EmployeeDaoImpl implements EmployeeDao{
     }
 
     @Override
-    public EmployeeBo updateEmployee(int id, EmployeeBo employeeBo)
+    public EmployeeBo updateEmployee(String  id, UpdateEmployeeRequest updateEmployeeRequest)
     {
-        Employee existingEmployee=employeeRepository.findById(id).orElse(null);
-        existingEmployee.setName(employeeBo.getName());
-        existingEmployee.setDob(employeeBo.getDate());
-        existingEmployee.setGender(employeeBo.getGender());
-        return employeeMapper.entityToBo(employeeRepository.save(existingEmployee));
+          Optional<Employee> optionalEmployee=employeeRepository.findById(id);
+          Employee employee=optionalEmployee.get();
+          employee=employeeMapper.updateRequestToEntity(updateEmployeeRequest);
+          return employeeMapper.entityToBo(employeeRepository.save(employee));
     }
 
     @Override
-    public void deleteEmployee(int id)
+    public void deleteEmployee(String id)
     {
         employeeRepository.deleteById(id);
     }
