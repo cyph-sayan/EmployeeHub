@@ -15,7 +15,7 @@ public interface EmployeeMapper {
     List<EmployeeBo> listEntityToListBo(List<Employee> employees);
     EmployeeBo entityToBo(Employee employee);
     Employee boToEntity(EmployeeBo employeeBo);
-    @Mapping(target="emp_id",source = "id")
+    @Mapping(target="empId",source = "id")
     EmployeeBo createRequestToBo(CreateEmployeeRequest employeeRequest, String id);
     Employee updateRequestToEntity(UpdateEmployeeRequest employeeRequest);
 }

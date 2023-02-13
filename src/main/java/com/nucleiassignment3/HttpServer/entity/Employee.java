@@ -16,16 +16,12 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@javax.persistence.Table(name="employees")
+@javax.persistence.Table(name="employee")
 public class Employee extends MetaData
 {
-    @Column(name="row_id")
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int rowId;
-
     @Id
     @Column(name = "emp_id")
-    private int empId;
+    private String empId;
 
     @Column(name = "name")
     private String name;
@@ -36,4 +32,8 @@ public class Employee extends MetaData
 
     @Column(name = "gender")
     private String gender;
+
+    @Column(name="row_id")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int rowId;
 }

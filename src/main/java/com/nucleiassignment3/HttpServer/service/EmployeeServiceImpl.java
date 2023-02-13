@@ -24,7 +24,9 @@ public class EmployeeServiceImpl implements EmployeeService
     @Override
     public EmployeeBo createEmployee(CreateEmployeeRequest createEmployeeRequest)
     {
-        return employeeDao.createEmployee(employeeMapper.createRequestToBo(createEmployeeRequest,employeeIdGenerator.employeeIdGen()));
+        final EmployeeBo employeeBo=employeeMapper.createRequestToBo(createEmployeeRequest,employeeIdGenerator.employeeIdGen());
+        System.out.println(employeeBo.getName()+"\n"+employeeBo.getDob()+"\n"+employeeBo.getGender()+"\n"+employeeBo.getEmpId());
+        return employeeDao.createEmployee(employeeBo);
     }
 
     @Override

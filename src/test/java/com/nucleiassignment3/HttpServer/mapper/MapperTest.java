@@ -24,20 +24,20 @@ public class MapperTest {
         EmployeeBo employeeBo=employeeMapper.entityToBo(employee);
         assertEquals(employeeBo.getName(),employee.getName());
         assertEquals(employeeBo.getGender(),employee.getGender());
-        assertEquals(employeeBo.getDate(),employee.getDob());
+        assertEquals(employeeBo.getDob(),employee.getDob());
     }
 
     @Test
     void testBoToEntity(){
         EmployeeBo employeeBo=new EmployeeBo();
         employeeBo.setName("Sayan");
-        employeeBo.setDate(Date.valueOf("2000-08-11"));
+        employeeBo.setDob(Date.valueOf("2000-08-11"));
         employeeBo.setGender("M");
 
         Employee employee=employeeMapper.boToEntity(employeeBo);
         assertEquals(employee.getName(),employeeBo.getName());
         assertEquals(employee.getGender(),employeeBo.getGender());
-        assertEquals(employee.getDob(),employeeBo.getDate());
+        assertEquals(employee.getDob(),employeeBo.getDob());
 
     }
 }

@@ -12,9 +12,9 @@ import java.sql.Date;
 @AllArgsConstructor
 public class EmployeeBo {
 
-    private String emp_id;
+    private String empId;
     private String name;
-    private Date date;
+    private Date dob;
     private String gender;
 
 }
