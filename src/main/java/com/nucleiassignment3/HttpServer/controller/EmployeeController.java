@@ -32,7 +32,8 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
-    public List<EmployeeBo> listEmployees(int pageSize, int pageNumber){
+    public List<EmployeeBo> listEmployees(int pageSize, int pageNumber)
+    {
         return employeeService.listEmployees(pageSize,pageNumber);
     }
 
@@ -43,7 +44,8 @@ public class EmployeeController {
     }
 
     @DeleteMapping("/employee/{id}")
-    public void deleteEmployee(@PathVariable int id){
+    public void deleteEmployee(@PathVariable int id)
+    {
          employeeService.deleteEmployee(id);
     }
 

@@ -1,7 +1,6 @@
 package com.nucleiassignment3.HttpServer.dao;
 
 import com.nucleiassignment3.HttpServer.bo.EmployeeBo;
-import com.nucleiassignment3.HttpServer.entity.Employee;
 import java.util.List;
 
 public interface EmployeeDao {

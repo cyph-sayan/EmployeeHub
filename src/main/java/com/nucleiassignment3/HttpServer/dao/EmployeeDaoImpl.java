@@ -20,33 +20,38 @@ public class EmployeeDaoImpl implements EmployeeDao{
     private EmployeeRepository employeeRepository;
 
     @Override
-    public EmployeeBo createEmployee(EmployeeBo employeeBo) {
+    public EmployeeBo createEmployee(EmployeeBo employeeBo)
+    {
 
         return employeeMapper.entityToBo(employeeRepository.save(employeeMapper.boToEntity(employeeBo)));
     }
 
     @Override
-    public EmployeeBo getEmployee(int id) {
+    public EmployeeBo getEmployee(int id)
+    {
         return employeeMapper.entityToBo(employeeRepository.findById(id).orElse(null));
     }
 
     @Override
-    public List<EmployeeBo> listEmployees(int pageSize, int pageNumber) {
+    public List<EmployeeBo> listEmployees(int pageSize, int pageNumber)
+    {
         Pageable pageable=PageRequest.of(pageNumber,pageSize);
         return employeeMapper.listEntityToListBo(employeeRepository.findAll(pageable).getContent());
     }
 
     @Override
-    public EmployeeBo updateEmployee(int id, EmployeeBo employeeBo) {
+    public EmployeeBo updateEmployee(int id, EmployeeBo employeeBo)
+    {
         Employee existingEmployee=employeeRepository.findById(id).orElse(null);
         existingEmployee.setName(employeeBo.getName());
-        existingEmployee.setDate(employeeBo.getDate());
+        existingEmployee.setDob(employeeBo.getDate());
         existingEmployee.setGender(employeeBo.getGender());
         return employeeMapper.entityToBo(employeeRepository.save(existingEmployee));
     }
 
     @Override
-    public void deleteEmployee(int id) {
+    public void deleteEmployee(int id)
+    {
         employeeRepository.deleteById(id);
     }
 }
