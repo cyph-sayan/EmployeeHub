@@ -10,13 +10,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
 
-public class ServicesTest {
-    @Autowired
-    EmployeeDao employeeDao;
+public class ServicesTest
+{
     @Autowired
     EmployeeService employeeService;
-    @Autowired
-    private EmployeeRepository employeeRepository;
+
     @Test
     void createRequestTest(){
         EmployeeBo employeeBo=employeeService.createEmployee(new CreateEmployeeRequest("Syan", Date.valueOf("2000-08-11"),"M"));

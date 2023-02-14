@@ -9,7 +9,7 @@ public class IdGenerator {
     private static SecureRandom RANDOM=new SecureRandom();
     private static final String ALLOWED_CHARS="ABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
 
-    public String employeeIdGen()
+    public static String generateEmployeeId()
     {
         return "GN-"+ IntStream.range(0,3)
                 .mapToObj(obj->

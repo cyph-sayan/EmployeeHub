@@ -4,14 +4,15 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import java.sql.Date;
 
+@EqualsAndHashCode(callSuper = true)
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -19,6 +20,10 @@ import java.sql.Date;
 @javax.persistence.Table(name="employee")
 public class Employee extends MetaData
 {
+    @Column(name="row_id")
+    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    private int rowId;
+
     @Id
     @Column(name = "emp_id")
     private String empId;
@@ -32,8 +37,4 @@ public class Employee extends MetaData
 
     @Column(name = "gender")
     private String gender;
-
-    @Column(name="row_id")
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
-    private int rowId;
 }

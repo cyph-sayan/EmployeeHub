@@ -2,6 +2,7 @@ package com.nucleiassignment3.HttpServer.controller;
 
 import com.nucleiassignment3.HttpServer.bo.EmployeeBo;
 import com.nucleiassignment3.HttpServer.model.CreateEmployeeRequest;
+import com.nucleiassignment3.HttpServer.model.ListPageRequest;
 import com.nucleiassignment3.HttpServer.model.UpdateEmployeeRequest;
 import com.nucleiassignment3.HttpServer.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -34,9 +35,9 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
-    public List<EmployeeBo> listEmployees(int pageSize, int pageNumber)
+    public List<EmployeeBo> listEmployees(ListPageRequest listPageRequest)
     {
-        return employeeService.listEmployees(pageSize,pageNumber);
+        return employeeService.listEmployees(listPageRequest.getPageSize(),listPageRequest.getPageNumber());
     }
 
     @GetMapping("/employees/{id}")

@@ -1,21 +1,24 @@
 package com.nucleiassignment3.HttpServer.mapper;
 
 import com.nucleiassignment3.HttpServer.bo.EmployeeBo;
-import com.nucleiassignment3.HttpServer.dao.EmployeeDao;
-import com.nucleiassignment3.HttpServer.dao.EmployeeDaoImpl;
 import com.nucleiassignment3.HttpServer.entity.Employee;
-import com.nucleiassignment3.HttpServer.mapper.EmployeeMapper;
+import com.nucleiassignment3.HttpServer.model.CreateEmployeeRequest;
+import com.nucleiassignment3.HttpServer.utility.IdGenerator;
 import org.junit.jupiter.api.Test;
-import org.mapstruct.factory.Mappers;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.sql.Date;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 public class MapperTest {
-    private EmployeeMapper employeeMapper= Mappers.getMapper(EmployeeMapper.class);
+
+    @Autowired
+    public EmployeeMapper employeeMapper;
+
     @Test
-    void testEntityToBo(){
+    void testEntityToBo()
+    {
         Employee employee=new Employee();
         employee.setName("Sayan");
         employee.setDob(Date.valueOf("2000-08-11"));
@@ -28,7 +31,8 @@ public class MapperTest {
     }
 
     @Test
-    void testBoToEntity(){
+    void testBoToEntity()
+    {
         EmployeeBo employeeBo=new EmployeeBo();
         employeeBo.setName("Sayan");
         employeeBo.setDob(Date.valueOf("2000-08-11"));
@@ -38,6 +42,18 @@ public class MapperTest {
         assertEquals(employee.getName(),employeeBo.getName());
         assertEquals(employee.getGender(),employeeBo.getGender());
         assertEquals(employee.getDob(),employeeBo.getDob());
-
+    }
+    @Test
+    void testCreateRequestToBo()
+    {
+        CreateEmployeeRequest createEmployeeRequest=new CreateEmployeeRequest();
+        createEmployeeRequest.setName("Sayan");
+        createEmployeeRequest.setDob(Date.valueOf("2000-08-11"));
+        createEmployeeRequest.setGender("M");
+        EmployeeBo employeeBo=employeeMapper.createRequestToBo(createEmployeeRequest,IdGenerator.generateEmployeeId());
+        System.out.println(employeeBo.getEmpId());
+        assertEquals("Sayan",employeeBo.getName());
+        assertEquals(Date.valueOf("2000-08-11"),employeeBo.getDob());
+        assertEquals("M",employeeBo.getGender());
     }
 }

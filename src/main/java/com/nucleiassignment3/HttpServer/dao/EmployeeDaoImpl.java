@@ -5,7 +5,6 @@ import com.nucleiassignment3.HttpServer.entity.Employee;
 import com.nucleiassignment3.HttpServer.mapper.EmployeeMapper;
 import com.nucleiassignment3.HttpServer.model.UpdateEmployeeRequest;
 import com.nucleiassignment3.HttpServer.repository.EmployeeRepository;
-import org.mapstruct.factory.Mappers;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -16,7 +15,8 @@ import java.util.Optional;
 @Repository
 public class EmployeeDaoImpl implements EmployeeDao{
 
-    private EmployeeMapper employeeMapper= Mappers.getMapper(EmployeeMapper.class);
+    @Autowired
+    private EmployeeMapper employeeMapper;
 
     @Autowired
     private EmployeeRepository employeeRepository;
