@@ -70,6 +70,16 @@ tasks.withType(Copy) {
 	}
 }
 
+
+checkstyle {
+	toolVersion '8.36.1'
+}
+
+checkstyleMain {
+	source ='src/main/java'
+}
+
+
 tasks.withType(Checkstyle) {
 	reports {
 		xml.required = true
