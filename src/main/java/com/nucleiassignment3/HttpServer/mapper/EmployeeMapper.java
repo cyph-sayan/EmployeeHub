@@ -18,4 +18,6 @@ public interface EmployeeMapper {
     @Mapping(target="empId",source = "id")
     EmployeeBo createRequestToBo(CreateEmployeeRequest employeeRequest, String id);
     Employee updateRequestToEntity(UpdateEmployeeRequest employeeRequest);
+//    @Mapping(target="empId",source = "id")
+//    EmployeeBo protoToBo(com.mysql_crud.grpc.CreateEmployeeRequest employeeRequest, String id);
 }
