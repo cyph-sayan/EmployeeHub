@@ -20,11 +20,12 @@ import java.sql.Date;
 @javax.persistence.Table(name="employee")
 public class Employee extends MetaData
 {
+    @Id
     @Column(name="row_id")
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private int rowId;
 
-    @Id
+
     @Column(name = "emp_id")
     private String empId;
 
