@@ -20,8 +20,9 @@ service EmployeesService {
   rpc DeleteEmployee(DeleteEmployeeRequest) returns (google.protobuf.Empty){};
 }
 message CreateEmployeeRequest {
-  string name=2;
-  string gender=4;
+  string name=1;
+  Date dob=2;
+  string gender=3;
 }
 message CreateEmployeeResponse {
   Employee employee=1;
@@ -51,4 +52,13 @@ message DeleteEmployeeRequest {
 message Employee
 {
   string id=1;
+  string name=2;
+  Date dob=3;
+  string gender=4;
 }
+message Date{
+  int32 day=1;
+  int32 month=2;
+  int32 year=3;
+}
+
