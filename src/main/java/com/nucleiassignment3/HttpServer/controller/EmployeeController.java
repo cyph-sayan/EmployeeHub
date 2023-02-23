@@ -42,7 +42,6 @@ public class EmployeeController {
         return employeeService.updateEmployee(id,updateEmployeeRequest);
     }
 
-    @Cacheable(value = "employees", key="#listPageRequest.pageSize")
     @GetMapping("/employees")
     public List<EmployeeBo> listEmployees(@RequestBody ListPageRequest listPageRequest)
     {
@@ -58,7 +57,7 @@ public class EmployeeController {
         return employeeService.getEmployee(id);
     }
 
-    @CacheEvict(value = "employees", allEntries=true)
+    @CacheEvict(value = "employees", key="#id")
     @DeleteMapping("/employees/{id}")
     public void deleteEmployee(@PathVariable String id)
     {
