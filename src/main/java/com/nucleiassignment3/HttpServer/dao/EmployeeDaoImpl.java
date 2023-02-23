@@ -6,9 +6,13 @@ import com.nucleiassignment3.HttpServer.mapper.EmployeeMapper;
 import com.nucleiassignment3.HttpServer.model.UpdateEmployeeRequest;
 import com.nucleiassignment3.HttpServer.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 import java.util.Optional;
 
@@ -28,17 +32,19 @@ public class EmployeeDaoImpl implements EmployeeDao{
         return employeeMapper.entityToBo(employeeRepository.save(employeeMapper.boToEntity(employeeBo)));
     }
 
+    @Cacheable(value = "employees", key="#id")
     @Override
     public EmployeeBo getEmployee(String id)
     {
-        return employeeMapper.entityToBo(employeeRepository.findById(id).orElse(null));
+        return employeeMapper.entityToBo(employeeRepository.findByempId(id));
     }
 
     @Override
     public List<EmployeeBo> listEmployees(int pageSize, int pageNumber)
     {
         Pageable pageable=PageRequest.of(pageNumber,pageSize);
-        return employeeMapper.listEntityToListBo(employeeRepository.findAll(pageable).getContent());
+        List<Employee> employees=employeeRepository.findAll(pageable).getContent();
+        return employeeMapper.listEntityToListBo(employees);
     }
 
     @Override
@@ -50,9 +56,10 @@ public class EmployeeDaoImpl implements EmployeeDao{
           return employeeMapper.entityToBo(employeeRepository.save(employee));
     }
 
+    @CacheEvict(value = "users", allEntries=true)
     @Override
     public void deleteEmployee(String id)
     {
-        employeeRepository.deleteById(id);
+        employeeRepository.deleteByempId(id);
     }
 }

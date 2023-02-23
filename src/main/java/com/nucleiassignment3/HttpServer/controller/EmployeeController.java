@@ -5,7 +5,11 @@ import com.nucleiassignment3.HttpServer.model.CreateEmployeeRequest;
 import com.nucleiassignment3.HttpServer.model.ListPageRequest;
 import com.nucleiassignment3.HttpServer.model.UpdateEmployeeRequest;
 import com.nucleiassignment3.HttpServer.service.EmployeeService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +23,7 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 public class EmployeeController {
-
+    private final Logger LOG = LoggerFactory.getLogger(getClass());
     @Autowired
     EmployeeService employeeService;
 
@@ -35,17 +39,20 @@ public class EmployeeController {
     }
 
     @GetMapping("/employees")
-    public List<EmployeeBo> listEmployees(ListPageRequest listPageRequest)
+    public List<EmployeeBo> listEmployees(@RequestBody ListPageRequest listPageRequest)
     {
         return employeeService.listEmployees(listPageRequest.getPageSize(),listPageRequest.getPageNumber());
     }
 
+    @Cacheable(value = "employees", key="#id")
     @GetMapping("/employees/{id}")
     public EmployeeBo getEmployee(@PathVariable String id)
     {
+        LOG.info("Getting User:"+id);
         return employeeService.getEmployee(id);
     }
 
+    @CacheEvict(value = "employees", allEntries=true)
     @DeleteMapping("/employees/{id}")
     public void deleteEmployee(@PathVariable String id)
     {

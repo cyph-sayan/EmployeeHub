@@ -32,7 +32,8 @@ dependencies {
 	testImplementation 'org.junit.jupiter:junit-jupiter-api:5.8.1'
 	testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.8.1'
 	implementation group: 'javax.persistence', name: 'javax.persistence-api', version: '2.2'
-
+	implementation group: 'org.springframework.boot', name: 'spring-boot-starter-data-redis', version: '3.0.2'
+	implementation group: 'redis.clients', name: 'jedis', version: '4.3.1'
 }
 
 tasks.named('test') {
