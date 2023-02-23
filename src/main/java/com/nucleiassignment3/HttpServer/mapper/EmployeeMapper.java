@@ -6,7 +6,9 @@ import com.nucleiassignment3.HttpServer.model.CreateEmployeeRequest;
 import com.nucleiassignment3.HttpServer.model.UpdateEmployeeRequest;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.springframework.data.domain.Page;
 
+import javax.swing.text.html.parser.Entity;
 import java.util.List;
 
 @Mapper(componentModel = "spring")

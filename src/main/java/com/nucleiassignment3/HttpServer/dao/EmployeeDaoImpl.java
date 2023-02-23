@@ -6,9 +6,15 @@ import com.nucleiassignment3.HttpServer.mapper.EmployeeMapper;
 import com.nucleiassignment3.HttpServer.model.UpdateEmployeeRequest;
 import com.nucleiassignment3.HttpServer.repository.EmployeeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CacheEvict;
+import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
+
+import javax.swing.text.html.parser.Entity;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -31,14 +37,16 @@ public class EmployeeDaoImpl implements EmployeeDao{
     @Override
     public EmployeeBo getEmployee(String id)
     {
-        return employeeMapper.entityToBo(employeeRepository.findById(id).orElse(null));
+        return employeeMapper.entityToBo(employeeRepository.findByempId(id));
     }
 
     @Override
     public List<EmployeeBo> listEmployees(int pageSize, int pageNumber)
     {
         Pageable pageable=PageRequest.of(pageNumber,pageSize);
-        return employeeMapper.listEntityToListBo(employeeRepository.findAll(pageable).getContent());
+        Page<Employee> employees=employeeRepository.findAll(pageable);
+        List<Employee> employeeList=employees.getContent();
+        return employeeMapper.listEntityToListBo(employeeList);
     }
 
     @Override
@@ -53,6 +61,6 @@ public class EmployeeDaoImpl implements EmployeeDao{
     @Override
     public void deleteEmployee(String id)
     {
-        employeeRepository.deleteById(id);
+        employeeRepository.deleteByempId(id);
     }
 }
