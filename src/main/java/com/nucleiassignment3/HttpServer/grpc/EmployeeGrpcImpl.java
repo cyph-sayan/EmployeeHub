@@ -10,7 +10,7 @@ import org.lognet.springboot.grpc.GRpcService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 @GRpcService
-public class EmployeeGrpcServiceImpl extends EmployeesServiceGrpc.EmployeesServiceImplBase{
+public class EmployeeGrpcImpl extends EmployeesServiceGrpc.EmployeesServiceImplBase {
     @Autowired
     EmployeeService employeeService;
     @Override
@@ -18,17 +18,17 @@ public class EmployeeGrpcServiceImpl extends EmployeesServiceGrpc.EmployeesServi
         EmployeeBo employeeBo=employeeService.createEmployee(ProtoToRequestMapper.employeeRequest(request));
         java.sql.Date dob=employeeBo.getDob();
         CreateEmployeeResponse createEmployeeResponse=CreateEmployeeResponse.newBuilder()
-                        .setEmployee(Employee.newBuilder()
-                                        .setId(employeeBo.getEmpId())
-                                                .setName(employeeBo.getName())
-                                                        .setDob(Date.newBuilder()
-                                                                .setDay(dob.getDay())
-                                                                .setMonth(dob.getMonth())
-                                                                .setYear(dob.getYear())
-                                                                .build())
-                                                                .setGender(employeeBo.getGender())
-                                                                        .build())
-                                .build();
+                .setEmployee(Employee.newBuilder()
+                        .setId(employeeBo.getEmpId())
+                        .setName(employeeBo.getName())
+                        .setDob(Date.newBuilder()
+                                .setDay(dob.getDay())
+                                .setMonth(dob.getMonth())
+                                .setYear(dob.getYear())
+                                .build())
+                        .setGender(employeeBo.getGender())
+                        .build())
+                .build();
         responseObserver.onNext(createEmployeeResponse);
         responseObserver.onCompleted();
     }
@@ -65,3 +65,10 @@ public class EmployeeGrpcServiceImpl extends EmployeesServiceGrpc.EmployeesServi
     }
 
 }
+
+
+
+
+
+
+

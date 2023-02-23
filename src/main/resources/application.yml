@@ -15,4 +15,4 @@ server:
   port: '9191'
 grpc:
   port: '8080'
-  enable-reflection: true
+  enableReflection: true
