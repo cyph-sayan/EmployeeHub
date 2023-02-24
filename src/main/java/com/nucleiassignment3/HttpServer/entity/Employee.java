@@ -1,15 +1,16 @@
 package com.nucleiassignment3.HttpServer.entity;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.Column;
+import jakarta.persistence.Table;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.springframework.format.annotation.DateTimeFormat;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import java.sql.Date;
 
 @EqualsAndHashCode(callSuper = true)
@@ -17,16 +18,15 @@ import java.sql.Date;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-@javax.persistence.Table(name="employee")
+@Table(name="employee")
 public class Employee extends MetaData
 {
     @Id
-    @Column(name="row_id")
-    @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name="rowId")
     private int rowId;
 
-
-    @Column(name = "emp_id")
+    @Column(name = "empId",nullable = false, unique = true)
     private String empId;
 
     @Column(name = "name")

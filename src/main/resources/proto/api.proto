@@ -21,9 +21,7 @@ service EmployeesService {
 }
 
 message CreateEmployeeRequest {
-  string name=1;
-  Date dob=2;
-  string gender=3;
+  Employee employee=1;
 }
 message CreateEmployeeResponse {
   Employee employee=1;
