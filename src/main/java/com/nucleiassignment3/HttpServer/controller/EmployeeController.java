@@ -26,7 +26,6 @@ import java.util.List;
 @RestController
 @RequestMapping("/api/v1")
 public class EmployeeController {
-    private final Logger LOG = LoggerFactory.getLogger(getClass());
     @Autowired
     EmployeeService employeeService;
 
@@ -35,7 +34,6 @@ public class EmployeeController {
         return employeeService.createEmployee(createEmployeeRequest);
     }
 
-    @CachePut(value = "employees", key = "#id")
     @PutMapping("/employees/{id}")
     public EmployeeBo updateEmployee(@PathVariable String id,@RequestBody UpdateEmployeeRequest updateEmployeeRequest)
     {
@@ -45,19 +43,15 @@ public class EmployeeController {
     @GetMapping("/employees")
     public List<EmployeeBo> listEmployees(@RequestBody ListPageRequest listPageRequest)
     {
-        LOG.info("Listing Employees");
         return employeeService.listEmployees(listPageRequest.getPageSize(),listPageRequest.getPageNumber());
     }
 
-    @Cacheable(value = "employees", key="#id")
     @GetMapping("/employees/{id}")
     public EmployeeBo getEmployee(@PathVariable String id)
     {
-        LOG.info("Getting User:"+id);
         return employeeService.getEmployee(id);
     }
 
-    @CacheEvict(value = "employees", key="#id")
     @DeleteMapping("/employees/{id}")
     public void deleteEmployee(@PathVariable String id)
     {

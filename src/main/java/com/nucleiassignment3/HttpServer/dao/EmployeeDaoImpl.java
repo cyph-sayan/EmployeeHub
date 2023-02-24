@@ -37,6 +37,7 @@ public class EmployeeDaoImpl implements EmployeeDao{
     @Override
     public EmployeeBo getEmployee(String id)
     {
+        System.out.println("Hulla");
         return employeeMapper.entityToBo(employeeRepository.findByempId(id));
     }
 
