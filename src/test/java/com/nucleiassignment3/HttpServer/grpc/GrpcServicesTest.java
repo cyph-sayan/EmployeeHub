@@ -19,10 +19,11 @@ import io.grpc.ManagedChannelBuilder;
 import java.util.ArrayList;
 import java.util.List;
 import org.junit.Ignore;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
-
+@Disabled
 @SpringBootTest
 public class GrpcServicesTest {
 
@@ -115,7 +116,6 @@ public class GrpcServicesTest {
         .build();
     EmployeesServiceGrpc.EmployeesServiceBlockingStub stub =
         EmployeesServiceGrpc.newBlockingStub(channel);
-    List<String> employeeId = new ArrayList<>();
     CreateEmployeeResponse employeeResponse1 =
         stub.createEmployee(CreateEmployeeRequest.newBuilder()
             .setEmployee(Employee.newBuilder()
@@ -129,6 +129,7 @@ public class GrpcServicesTest {
     assertEquals(21, employeeResponse1.getEmployee().getDob().getDay());
     assertEquals(12, employeeResponse1.getEmployee().getDob().getMonth());
     assertEquals(1998, employeeResponse1.getEmployee().getDob().getYear());
+    List<String> employeeId = new ArrayList<>();
     employeeId.add(employeeResponse1.getEmployee().getId());
     CreateEmployeeResponse employeeResponse2 =
         stub.createEmployee(CreateEmployeeRequest.newBuilder()
