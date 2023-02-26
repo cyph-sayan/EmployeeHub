@@ -1,10 +1,10 @@
 package com.nucleiassignment3.HttpServer.bo;
 
+import java.sql.Date;
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import lombok.Getter;
-import java.sql.Date;
 
 @Getter
 @Setter
@@ -12,9 +12,9 @@ import java.sql.Date;
 @AllArgsConstructor
 public class EmployeeBo {
 
-    private String empId;
-    private String name;
-    private Date dob;
-    private String gender;
+  private String empId;
+  private String name;
+  private Date dob;
+  private String gender;
 
 }

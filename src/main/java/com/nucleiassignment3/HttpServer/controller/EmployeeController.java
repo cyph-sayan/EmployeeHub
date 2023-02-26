@@ -5,51 +5,50 @@ import com.nucleiassignment3.HttpServer.model.CreateEmployeeRequest;
 import com.nucleiassignment3.HttpServer.model.ListPageRequest;
 import com.nucleiassignment3.HttpServer.model.UpdateEmployeeRequest;
 import com.nucleiassignment3.HttpServer.service.EmployeeService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
 
 @RestController
 @RequestMapping("/api/v1")
 public class EmployeeController {
 
-    @Autowired
-    EmployeeService employeeService;
+  @Autowired
+  EmployeeService employeeService;
 
-    @PostMapping("/employees")
-    public EmployeeBo addEmployee(@RequestBody CreateEmployeeRequest createEmployeeRequest){
-        return employeeService.createEmployee(createEmployeeRequest);
-    }
+  @PostMapping("/employees")
+  public EmployeeBo addEmployee(@RequestBody CreateEmployeeRequest createEmployeeRequest) {
+    return employeeService.createEmployee(createEmployeeRequest);
+  }
 
-    @PutMapping("/employees/{id}")
-    public EmployeeBo updateEmployee(@PathVariable String id,@RequestBody UpdateEmployeeRequest updateEmployeeRequest)
-    {
-        return employeeService.updateEmployee(id,updateEmployeeRequest);
-    }
+  @PutMapping("/employees/{id}")
+  public EmployeeBo updateEmployee(@PathVariable String id,
+                                   @RequestBody UpdateEmployeeRequest updateEmployeeRequest) {
+    return employeeService.updateEmployee(id, updateEmployeeRequest);
+  }
 
-    @GetMapping("/employees")
-    public List<EmployeeBo> listEmployees(ListPageRequest listPageRequest)
-    {
-        return employeeService.listEmployees(listPageRequest.getPageSize(),listPageRequest.getPageNumber());
-    }
+  @GetMapping("/employees")
+  public List<EmployeeBo> listEmployees(ListPageRequest listPageRequest) {
+    return employeeService.listEmployees(listPageRequest.getPageSize(),
+        listPageRequest.getPageNumber());
+  }
 
-    @GetMapping("/employees/{id}")
-    public EmployeeBo getEmployee(@PathVariable String id)
-    {
-        return employeeService.getEmployee(id);
-    }
+  @GetMapping("/employees/{id}")
+  public EmployeeBo getEmployee(@PathVariable String id) {
+    return employeeService.getEmployee(id);
+  }
 
-    @DeleteMapping("/employees/{id}")
-    public void deleteEmployee(@PathVariable String id)
-    {
-         employeeService.deleteEmployee(id);
-    }
+  @DeleteMapping("/employees/{id}")
+  public void deleteEmployee(@PathVariable String id) {
+    employeeService.deleteEmployee(id);
+  }
 
 }

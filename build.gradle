@@ -26,6 +26,8 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-jdbc'
+    implementation 'org.jetbrains:annotations:23.0.0'
+	implementation 'org.jetbrains:annotations:23.0.0'
 	compileOnly 'org.projectlombok:lombok'
 	developmentOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.mysql:mysql-connector-j'
@@ -47,52 +49,17 @@ dependencies {
 	implementation 'net.devh:grpc-server-spring-boot-starter:2.14.0.RELEASE'
 }
 
-sourceSets {
-	main {
-		java {
-			srcDirs 'build/generated/source/proto/main/grpc'
-			srcDirs 'build/generated/source/proto/main/java'
-		}
-	}
-}
-
-protobuf {
-	protoc {
-		artifact = 'com.google.protobuf:protoc:3.21.12'
-	}
-	plugins {
-		grpc {
-			artifact = 'io.grpc:protoc-gen-grpc-java:1.53.0'
-		}
-	}
-	generateProtoTasks{
-		all()*.plugins {
-			grpc {}
-		}
-	}
-}
-
-tasks.withType(Copy) {
-	filesMatching("**/*.proto") {
-		duplicatesStrategy = DuplicatesStrategy.INCLUDE
-	}
+checkstyleMain {
+	source ='src/main/java'
 }
 
 
-//checkstyle {
-//	toolVersion '8.36.1'
-//}
-
-//checkstyleMain {
-//	source ='src/main/java'
-//}
-
-//
-//tasks.withType(Checkstyle) {
-//	reports {
-//		xml.required = true
-//		html.required = true
-//	}
+tasks.withType(Checkstyle) {
+	reports {
+		xml.required = true
+		html.required = true
+	}
+}
 
 sourceSets {
 	main {
@@ -105,39 +72,39 @@ sourceSets {
 		}
 	}
 }
-protobuf {
-	protoc {
-		artifact = 'com.google.protobuf:protoc:3.0.0'
-	}
-	plugins {
-		grpc {
-			artifact = 'io.grpc:protoc-gen-grpc-java:1.0.0-pre2'
+	protobuf {
+		protoc {
+			artifact = 'com.google.protobuf:protoc:3.0.0'
+		}
+		plugins {
+			grpc {
+				artifact = 'io.grpc:protoc-gen-grpc-java:1.0.0-pre2'
+			}
+		}
+		generateProtoTasks {
+			all()*.plugins {
+				grpc {}
+			}
 		}
 	}
-	generateProtoTasks {
-		all()*.plugins {
-			grpc {}
+	tasks.withType(Copy) {
+		filesMatching("**/*.proto") {
+			duplicatesStrategy = DuplicatesStrategy.INCLUDE
 		}
 	}
-}
-//pmd {
-//	toolVersion = "6.23.0"
-//	ruleSetFiles = files("config/pmd/pmd.xml")
-//	ruleSets = []
-//}
-//checkstyle {
-//	toolVersion '8.36.1'
-//	configFile file("${project.rootDir}/config/checkstyle/checkstyle.xml")
-//}
-//checkstyleMain {
-//	source='src/main/java'
-//}
-//checkstyleTest{
-//	source='src/main/test'
-//}
 
-//
-test {
-	useJUnitPlatform()
-}
+	checkstyle {
+		toolVersion '8.11'
+		configFile file("${project.rootDir}/config/checkstyle/checkstyle.xml")
+	}
+	checkstyleMain {
+		source = 'src/main/java'
+	}
+	checkstyleTest {
+		source = 'src/test/java'
+	}
+
+	test {
+		useJUnitPlatform()
+	}
 
