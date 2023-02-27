@@ -1,28 +1,72 @@
-<?xml version="1.0"?>
-<ruleset name="Custom ruleset"
-         xmlns="http://pmd.sourceforge.net/ruleset/2.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://pmd.sourceforge.net/ruleset/2.0.0 http://pmd.sourceforge.net/ruleset_2_0_0.xsd">
-    <description>
-        PMD Basic Configuration
-    </description>
-
-    <rule ref="category/java/bestpractices.xml" />
-
-    <rule ref="category/java/codestyle.xml" />
-
-    <rule ref="category/java/design.xml" />
-
-    <rule ref="category/java/documentation.xml"/>
-
+<?xml version="1.0" encoding="UTF-8"?>
+<ruleset name="Custom ruleset">
+    <description>This ruleset detects bad practices in code</description>
+    ​
+    <!-- exclude generated classes -->
+    <exclude-pattern>.*/proto/.*</exclude-pattern>
+    <exclude-pattern>.*/test/.*</exclude-pattern>
+    <!-- Place to add your rules -->
+    <rule ref="category/java/bestpractices.xml">
+        <exclude name="JUnitTestsShouldIncludeAssert"/>
+        <exclude name="PreserveStackTrace"/>
+        <exclude name="GuardLogStatement"/>
+    </rule>
+    ​
+    <rule ref="category/java/codestyle.xml">
+        <exclude name="AtLeastOneConstructor"/>
+        <exclude name="OnlyOneReturn"/>
+        <exclude name="UselessParentheses"/>
+    </rule>
+    ​
+    <rule ref="category/java/design.xml">
+        <exclude name="LawOfDemeter"/>
+        <exclude name="ExcessiveParameterList"/>
+        <exclude name="DataClass"/>
+        <exclude name="TooManyFields"/>
+        <exclude name="AvoidCatchingGenericException"/>
+        <exclude name="ExcessiveImports"/>
+    </rule>
+    ​
+    <rule ref="category/java/errorprone.xml">
+        <exclude name="BeanMembersShouldSerialize"/>
+        <exclude name="UseLocaleWithCaseConversions"/>
+    </rule>
+    ​
     <rule ref="category/java/multithreading.xml"/>
-
+    ​
     <rule ref="category/java/performance.xml"/>
-
+    ​
     <rule ref="category/java/security.xml"/>
-
-    <rule ref="rulesets/java/quickstart.xml"/>
-
-    <rule ref="category/java/errorprone.xml" />
-
+    ​
+    <rule ref="category/java/codestyle.xml/LongVariable">
+        <properties>
+            <property name="minimum" value="55"/>
+            <property name="xpath">
+                <value>
+                    <![CDATA[//VariableDeclaratorId[string-length(@Image) > $minimum]]]>
+                </value>
+            </property>
+        </properties>
+    </rule>
+    <rule ref="category/java/codestyle.xml/ShortVariable">
+        <properties>
+            <property name="minimum" value="2"/>
+            <property name="xpath">
+                <value>
+                    <![CDATA[//VariableDeclaratorId[string-length(@Image) < $minimum]]]>
+                </value>
+            </property>
+        </properties>
+    </rule>
+    <rule ref="category/java/errorprone.xml/DataflowAnomalyAnalysis">
+        <properties>
+            <property name="violationSuppressRegex" value=".*-anomaly.*"/>
+        </properties>
+    </rule>
+    ​
+    <rule ref="category/java/codestyle.xml/TooManyStaticImports">
+        <properties>
+            <property name="maximumStaticImports" value="16"/>
+        </properties>
+    </rule>
 </ruleset>
