@@ -3,7 +3,6 @@ package com.nucleiassignment3.HttpServer.entity;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
 import jakarta.persistence.MappedSuperclass;
 import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.LastModifiedBy;
@@ -30,5 +29,5 @@ public abstract class MetaData {
 
     @LastModifiedBy
     @Column(name = "updated_by")
-    private String updator;
+    private String updater;
 }
