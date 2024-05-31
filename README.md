@@ -1,1 +1,1 @@
-# CRUD MYSQL HTTP SERVER
+Spring Boot CRUD API (MySql)
